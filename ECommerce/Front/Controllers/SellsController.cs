@@ -89,11 +89,15 @@ namespace Front.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "SellId,SellNumber,Date,BuyerName,BuyerDoc,PhoneNumber,TotalPrice")] Sell sell)
+        public ActionResult Edit([Bind(Include = "SellId,BuyerName,BuyerDoc,PhoneNumber")] Sell sell)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(sell).State = EntityState.Modified;
+                var updated = db.Sells.Find(sell.SellId);
+                updated.BuyerName = sell.BuyerName;
+                updated.BuyerDoc = sell.BuyerDoc;
+                updated.PhoneNumber = sell.PhoneNumber;
+                db.Entry(updated).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -121,6 +125,12 @@ namespace Front.Controllers
         public ActionResult DeleteConfirmed(long id)
         {
             Sell sell = db.Sells.Find(id);
+
+            db.SellItems
+                .Where(si => si.SellId == id)
+                .ToList()
+                .ForEach(si => db.SellItems.Remove(si));
+
             db.Sells.Remove(sell);
             db.SaveChanges();
             return RedirectToAction("Index");

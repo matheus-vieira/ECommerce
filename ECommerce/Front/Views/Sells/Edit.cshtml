@@ -73,17 +73,26 @@
     </div>
 }
 
-@Html.Partial("~/Views/SellItems/_Create.cshtml", new Front.Models.SellItem() { SellId = Model.SellId })
-@Html.Partial("~/Views/SellItems/_bySell.cshtml", Model.SellItems.Select(si => new Front.Models.ViewModel.SellItemVM()
-{
-    SellItemId = si.SellItemId,
-    Quantity = si.Quantity,
-    UnitPrice = si.UnitPrice,
-    ProductId = si.ProductId,
-    Product = si.Product,
-    SellId = si.SellId,
-    Sell = si.Sell
-}))
+<h4>Sell Items</h4>
+<hr />
+<div class="container">
+    <div class="row">
+        <div class="col-md-5">@Html.Partial("~/Views/SellItems/_Create.cshtml", new Front.Models.SellItem() { SellId = Model.SellId })</div>
+        <div class="col-md-7">
+            @Html.Partial("~/Views/SellItems/_bySell.cshtml", Model.SellItems.Select(si => new Front.Models.ViewModel.SellItemVM()
+       {
+           SellItemId = si.SellItemId,
+           Quantity = si.Quantity,
+           UnitPrice = si.UnitPrice,
+           ProductId = si.ProductId,
+           Product = si.Product,
+           SellId = si.SellId,
+           Sell = si.Sell
+       }))
+        </div>
+    </div>
+</div>
+
 
 <div>
     @Html.ActionLink("Back to Sell List", "Index")

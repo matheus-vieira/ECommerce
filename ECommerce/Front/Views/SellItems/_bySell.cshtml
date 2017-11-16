@@ -4,8 +4,6 @@
     ViewBag.Title = "_bySell";
 }
 
-<h2>Items</h2>
-
 <table class="table">
     <tr>
         <th>
@@ -57,20 +55,3 @@
         </div>
     </div>
 </div>
-
-@section Scripts {
-    <script>
-        $(document).ready(function () {
-            $modal = $('#sellItemModal');
-
-            $modal.on('show.bs.modal', function (event) {
-                var button = $(event.relatedTarget) // Button that triggered the modal
-                var url = button.data('url') // Extract info from data-* attributes
-                var title = button.text();
-                var modal = $(this)
-                modal.find('.modal-title').text(title);
-                modal.find('.modal-body').val(recipient)
-            });
-        })
-    </script>
-}
