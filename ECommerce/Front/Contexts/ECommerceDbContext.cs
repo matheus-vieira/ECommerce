@@ -23,7 +23,7 @@ namespace Front.Contexts
         public ECommerceDbContext()
             : base("Asp_Net_MVC_CS")
         {
-
+            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<ECommerceDbContext>());
         }
     }
 }

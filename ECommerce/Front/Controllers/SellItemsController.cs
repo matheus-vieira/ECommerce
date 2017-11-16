@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using Front.Contexts;
+using Front.Models;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using Front.Contexts;
-using Front.Models;
 
 namespace Front.Controllers
 {
@@ -41,7 +37,7 @@ namespace Front.Controllers
         public ActionResult Create()
         {
             ViewBag.ProductId = new SelectList(db.Products, "ProductId", "Name");
-            ViewBag.SellId = new SelectList(db.Sells, "SellId", "SellNumver");
+            ViewBag.SellId = new SelectList(db.Sells, "SellId", "SellNumber");
             return View();
         }
 
@@ -63,7 +59,7 @@ namespace Front.Controllers
             }
 
             //ViewBag.ProductId = new SelectList(db.Products, "ProductId", "Name", sellItem.ProductId);
-            //ViewBag.SellId = new SelectList(db.Sells, "SellId", "SellNumver", sellItem.SellId);
+            //ViewBag.SellId = new SelectList(db.Sells, "SellId", "SellNumber", sellItem.SellId);
             return RedirectToAction("Edit", "Sells", new { id = sellItem.SellId });
         }
 
@@ -80,7 +76,7 @@ namespace Front.Controllers
                 return HttpNotFound();
             }
             ViewBag.ProductId = new SelectList(db.Products, "ProductId", "Name", sellItem.ProductId);
-            ViewBag.SellId = new SelectList(db.Sells, "SellId", "SellNumver", sellItem.SellId);
+            ViewBag.SellId = new SelectList(db.Sells, "SellId", "SellNumber", sellItem.SellId);
             return View(sellItem);
         }
 
@@ -98,7 +94,7 @@ namespace Front.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.ProductId = new SelectList(db.Products, "ProductId", "Name", sellItem.ProductId);
-            ViewBag.SellId = new SelectList(db.Sells, "SellId", "SellNumver", sellItem.SellId);
+            ViewBag.SellId = new SelectList(db.Sells, "SellId", "SellNumber", sellItem.SellId);
             return View(sellItem);
         }
 

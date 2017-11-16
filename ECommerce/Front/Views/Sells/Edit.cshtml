@@ -10,7 +10,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Sell</h4>
         <hr />
@@ -18,10 +18,10 @@
         @Html.HiddenFor(model => model.SellId)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.SellNumver, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.SellNumber, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.SellNumver, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SellNumver, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.SellNumber, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.SellNumber, "", new { @class = "text-danger" })
             </div>
         </div>
 

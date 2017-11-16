@@ -8,7 +8,8 @@ namespace Front.Models
         public long? ProductId { get; set; }
         public string Name { get; set; }
         [DataType(DataType.Currency)]
-        public double Price { get; set; }
+        [DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = false)]
+        public decimal Price { get; set; }
         public long? CategoryId { get; set; }
         public Category Category { get; set; }
         public long? SupplierId { get; set; }

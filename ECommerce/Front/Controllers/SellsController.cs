@@ -47,11 +47,14 @@ namespace Front.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "SellId,SellNumver,Date,BuyerName,BuyerDoc,PhoneNumber,TotalPrice")] Sell sell)
+        public ActionResult Create([Bind(Include = "SellId,SellNumber,Date,BuyerName,BuyerDoc,PhoneNumber,TotalPrice")] Sell sell)
         {
             if (ModelState.IsValid)
             {
                 sell.Date = DateTime.Now;
+                sell.SellNumber = db.Sells.Max(s => s.SellNumber);
+                if (!sell.SellNumber.HasValue)
+                    sell.SellNumber = 2000;
                 db.Sells.Add(sell);
                 db.SaveChanges();
                 return RedirectToAction("Edit", new { id = sell.SellId });
@@ -77,7 +80,7 @@ namespace Front.Controllers
             }
 
             ViewBag.ProductId = new SelectList(db.Products, "ProductId", "Name");
-            ViewBag.SellId = new SelectList(db.Sells, "SellId", "SellNumver");
+            ViewBag.SellId = new SelectList(db.Sells, "SellId", "SellNumber");
             return View(sell);
         }
 
@@ -86,7 +89,7 @@ namespace Front.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "SellId,SellNumver,Date,BuyerName,BuyerDoc,PhoneNumber,TotalPrice")] Sell sell)
+        public ActionResult Edit([Bind(Include = "SellId,SellNumber,Date,BuyerName,BuyerDoc,PhoneNumber,TotalPrice")] Sell sell)
         {
             if (ModelState.IsValid)
             {

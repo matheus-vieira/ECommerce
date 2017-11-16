@@ -7,9 +7,9 @@ namespace Front.Models
     public class Sell
     {
         public long? SellId { get; set; }
-        public string SellNumver { get; set; }
+        public long? SellNumber { get; set; }
         [DataType(DataType.DateTime)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd hh:mm}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }
         public string BuyerName { get; set; }
         public string BuyerDoc { get; set; }
