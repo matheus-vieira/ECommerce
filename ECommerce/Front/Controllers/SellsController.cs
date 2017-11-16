@@ -127,6 +127,10 @@ namespace Front.Controllers
             {
                 return HttpNotFound();
             }
+
+            if (sell.Closed)
+                return RedirectToAction("Details", "Sells", new { id = sell.SellId });
+
             return View(sell);
         }
 

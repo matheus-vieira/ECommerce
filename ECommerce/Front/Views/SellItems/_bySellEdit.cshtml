@@ -37,8 +37,8 @@
                 @Html.DisplayFor(modelItem => item.Total)
             </td>
             <td>
-                <button type="button" class="btn btn-link" data-toggle="modal" data-target="#sellItemModal" data-url="@Url.Action("Edit", "SellItems", new { id = item.SellItemId })">Edit</button> |
-                <button type="button" class="btn btn-link" data-toggle="modal" data-target="#sellItemModal" data-url="@Url.Action("Delete", "SellItems", new { id = item.SellItemId })">Delete</button>
+                @Html.ActionLink("Edit", "Edit", "SellItems", new { Href = "#", data_toggle = "modal", data_target = "#sellItemModal", data_url  = Url.Action("Edit", "SellItems", new { id = item.SellItemId }) }) |
+                @Html.ActionLink("Delete", "Delete", "SellItems", new { Href = "#", data_toggle = "modal", data_target = "#sellItemModal", data_url = Url.Action("Delete", "SellItems", new { id = item.SellItemId }) })
             </td>
         </tr>
     }
