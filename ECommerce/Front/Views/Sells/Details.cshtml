@@ -58,6 +58,24 @@
             @Html.DisplayFor(model => model.TotalPrice)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.SellItems)
+        </dt>
+
+        <dd>
+
+            @Html.Partial("~/Views/SellItems/_bySellDetails.cshtml", Model.SellItems.Select(si => new Front.Models.ViewModel.SellItemVM()
+               {
+                   SellItemId = si.SellItemId,
+                   Quantity = si.Quantity,
+                   UnitPrice = si.UnitPrice,
+                   ProductId = si.ProductId,
+                   Product = si.Product,
+                   SellId = si.SellId,
+                   Sell = si.Sell
+               }))
+        </dd>
+
     </dl>
 </div>
 <p>

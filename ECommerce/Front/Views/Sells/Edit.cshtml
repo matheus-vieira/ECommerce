@@ -67,7 +67,12 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Edit" class="btn btn-default" />
+                @if (!Model.Closed)
+                {
+                    @Html.HiddenFor(model => model.Closed)
+                    <input type="submit" id="btnClose" value="Close" class="btn btn-success" />
+                }
             </div>
         </div>
     </div>
@@ -77,9 +82,12 @@
 <hr />
 <div class="container">
     <div class="row">
-        <div class="col-md-5">@Html.Partial("~/Views/SellItems/_Create.cshtml", new Front.Models.SellItem() { SellId = Model.SellId })</div>
-        <div class="col-md-7">
-            @Html.Partial("~/Views/SellItems/_bySell.cshtml", Model.SellItems.Select(si => new Front.Models.ViewModel.SellItemVM()
+        @if (!Model.Closed)
+        {
+            <div class="col-md-5">@Html.Partial("~/Views/SellItems/_Create.cshtml", new Front.Models.SellItem() { SellId = Model.SellId })</div>
+        }
+        <div class="col-md-@(Model.Closed ? 12 : 7)">
+            @Html.Partial("~/Views/SellItems/_bySellEdit.cshtml", Model.SellItems.Select(si => new Front.Models.ViewModel.SellItemVM()
        {
            SellItemId = si.SellItemId,
            Quantity = si.Quantity,
@@ -101,7 +109,7 @@
 @section Scripts {
     <script>
         $(document).ready(function () {
-            $modal = $('#sellItemModal');
+            var $modal = $('#sellItemModal');
 
             $modal.on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget) // Button that triggered the modal
@@ -110,6 +118,17 @@
                 $modal.find('.modal-title').text(title);
                 $modal.find('.modal-body').load(url);
             });
+
+           @if (!Model.Closed)
+           {
+               <text>
+            var $closed = $("#Closed");
+            $("#btnClose").click(function () {
+                $closed.val("True");
+            });
+                </text>
+           }
         })
     </script>
+
 }

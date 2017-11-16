@@ -120,7 +120,8 @@ namespace Front.Controllers
         public ActionResult DeleteConfirmed(long id)
         {
             Product product = db.Products.Find(id);
-            db.Products.Remove(product);
+            product.Deleted = true;
+            db.Entry(product).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -28,7 +28,9 @@ namespace Front.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Sell sell = db.Sells.Find(id);
+            Sell sell = db.Sells
+                .Include("SellItems.Product")
+                .FirstOrDefault(s => s.SellId == id.Value);
             if (sell == null)
             {
                 return HttpNotFound();
@@ -71,7 +73,7 @@ namespace Front.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Sell sell = db.Sells
-                .Include(s => s.SellItems)
+                .Include("SellItems.Product")
                 .FirstOrDefault(s => s.SellId == id.Value);
 
             if (sell == null)
@@ -79,7 +81,10 @@ namespace Front.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.ProductId = new SelectList(db.Products, "ProductId", "Name");
+            if(sell.Closed)
+                return RedirectToAction("Details", "Sells", new { id = sell.SellId });
+
+            ViewBag.ProductId = new SelectList(db.Products.Where(p => !p.Deleted), "ProductId", "Name");
             ViewBag.SellId = new SelectList(db.Sells, "SellId", "SellNumber");
             return View(sell);
         }
@@ -89,7 +94,7 @@ namespace Front.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "SellId,BuyerName,BuyerDoc,PhoneNumber")] Sell sell)
+        public ActionResult Edit([Bind(Include = "SellId,BuyerName,Closed,BuyerDoc,PhoneNumber")] Sell sell)
         {
             if (ModelState.IsValid)
             {
@@ -97,11 +102,17 @@ namespace Front.Controllers
                 updated.BuyerName = sell.BuyerName;
                 updated.BuyerDoc = sell.BuyerDoc;
                 updated.PhoneNumber = sell.PhoneNumber;
+                if (!updated.Closed)
+                    updated.Closed = sell.Closed;
                 db.Entry(updated).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                if (updated.Closed)
+                    return RedirectToAction("Index");
+
+                return RedirectToAction("Edit", "Sells", new { id = sell.SellId });
             }
-            return View(sell);
+            return RedirectToAction("Edit", "Sells", new { id = sell.SellId });
         }
 
         // GET: Sells/Delete/5

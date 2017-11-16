@@ -18,6 +18,7 @@ namespace Front.Models
         [DataType(DataType.Currency)]
         [DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = true)]
         public decimal TotalPrice { get; set; }
+        public bool Closed { get; set; }
         public virtual ICollection<SellItem> SellItems { get; set; }
     }
 }

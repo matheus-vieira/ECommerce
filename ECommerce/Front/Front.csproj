@@ -160,6 +160,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711161115168_InitialCreate.cs" />
+    <Compile Include="Migrations\201711161115168_InitialCreate.Designer.cs">
+      <DependentUpon>201711161115168_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\Sell.cs" />
@@ -248,7 +253,8 @@
     <Content Include="Views\SellItems\Edit.cshtml" />
     <Content Include="Views\SellItems\Index.cshtml" />
     <Content Include="Views\SellItems\_Create.cshtml" />
-    <Content Include="Views\SellItems\_bySell.cshtml" />
+    <Content Include="Views\SellItems\_bySellEdit.cshtml" />
+    <Content Include="Views\SellItems\_bySellDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -257,6 +263,11 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.2.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.2.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201711161115168_InitialCreate.resx">
+      <DependentUpon>201711161115168_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,9 +1,6 @@
-﻿using Front.Models;
-using System;
-using System.Collections.Generic;
+﻿using Front.Migrations;
+using Front.Models;
 using System.Data.Entity;
-using System.Linq;
-using System.Web;
 
 namespace Front.Contexts
 {
@@ -23,7 +20,7 @@ namespace Front.Contexts
         public ECommerceDbContext()
             : base("Asp_Net_MVC_CS")
         {
-            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<ECommerceDbContext>());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<ECommerceDbContext, Configuration>());
         }
     }
 }

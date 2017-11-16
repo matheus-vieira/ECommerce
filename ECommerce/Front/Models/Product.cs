@@ -10,6 +10,7 @@ namespace Front.Models
         [DataType(DataType.Currency)]
         [DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = false)]
         public decimal Price { get; set; }
+        public bool Deleted { get; set; }
         public long? CategoryId { get; set; }
         public Category Category { get; set; }
         public long? SupplierId { get; set; }
