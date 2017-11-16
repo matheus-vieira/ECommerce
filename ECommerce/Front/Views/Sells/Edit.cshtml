@@ -74,12 +74,33 @@
 }
 
 @Html.Partial("~/Views/SellItems/_Create.cshtml", new Front.Models.SellItem() { SellId = Model.SellId })
-@Html.Partial("~/Views/SellItems/_bySell.cshtml", Model.SellItems)
+@Html.Partial("~/Views/SellItems/_bySell.cshtml", Model.SellItems.Select(si => new Front.Models.ViewModel.SellItemVM()
+{
+    SellItemId = si.SellItemId,
+    Quantity = si.Quantity,
+    UnitPrice = si.UnitPrice,
+    ProductId = si.ProductId,
+    Product = si.Product,
+    SellId = si.SellId,
+    Sell = si.Sell
+}))
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to Sell List", "Index")
 </div>
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            $modal = $('#sellItemModal');
+
+            $modal.on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget) // Button that triggered the modal
+                var url = button.data('url') // Extract info from data-* attributes
+                var title = button.text();
+                $modal.find('.modal-title').text(title);
+                $modal.find('.modal-body').load(url);
+            });
+        })
+    </script>
 }

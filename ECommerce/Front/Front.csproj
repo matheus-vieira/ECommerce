@@ -165,6 +165,7 @@
     <Compile Include="Models\Sell.cs" />
     <Compile Include="Models\SellItem.cs" />
     <Compile Include="Models\Supplier.cs" />
+    <Compile Include="Models\ViewModel\SellItemVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -251,7 +252,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\ViewModel\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

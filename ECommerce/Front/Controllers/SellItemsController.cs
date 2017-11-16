@@ -70,7 +70,11 @@ namespace Front.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SellItem sellItem = db.SellItems.Find(id);
+            SellItem sellItem = db
+                .SellItems
+                .Include(si => si.Product)
+                .FirstOrDefault(si => si.SellItemId == id.Value);
+
             if (sellItem == null)
             {
                 return HttpNotFound();
@@ -91,11 +95,18 @@ namespace Front.Controllers
             {
                 db.Entry(sellItem).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                var sell = db.Sells
+                    .Include(s => s.SellItems)
+                    .FirstOrDefault(s => s.SellId == sellItem.SellId);
+                sell.TotalPrice = sell.SellItems.Sum(si => si.UnitPrice * si.Quantity);
+                db.Entry(sell).State = EntityState.Modified;
+
+                db.SaveChanges();
+                return RedirectToAction("Edit", "Sells", new { id = sellItem.SellId });
             }
-            ViewBag.ProductId = new SelectList(db.Products, "ProductId", "Name", sellItem.ProductId);
-            ViewBag.SellId = new SelectList(db.Sells, "SellId", "SellNumber", sellItem.SellId);
-            return View(sellItem);
+
+            return RedirectToAction("Edit", "Sells", new { id = sellItem.SellId });
         }
 
         // GET: SellItems/Delete/5
@@ -105,7 +116,10 @@ namespace Front.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SellItem sellItem = db.SellItems.Find(id);
+            SellItem sellItem = db
+                .SellItems
+                .Include(si => si.Product)
+                .FirstOrDefault(si => si.SellItemId == id.Value);
             if (sellItem == null)
             {
                 return HttpNotFound();
@@ -119,9 +133,17 @@ namespace Front.Controllers
         public ActionResult DeleteConfirmed(long id)
         {
             SellItem sellItem = db.SellItems.Find(id);
+
+            var sell = db.Sells
+                .Include(s => s.SellItems)
+                .FirstOrDefault(s => s.SellId == sellItem.SellId);
+            sell.TotalPrice -= sellItem.UnitPrice * sellItem.Quantity;
+            
             db.SellItems.Remove(sellItem);
+            db.Entry(sell).State = EntityState.Modified;
+
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Edit", "Sells", new { id = sell.SellId });
         }
 
         protected override void Dispose(bool disposing)
