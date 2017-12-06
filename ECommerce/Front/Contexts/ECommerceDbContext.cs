@@ -22,5 +22,9 @@ namespace Front.Contexts
         {
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<ECommerceDbContext, Configuration>());
         }
+
+        public System.Data.Entity.DbSet<Front.Models.Cidade> Cidades { get; set; }
+
+        public System.Data.Entity.DbSet<Front.Models.Estado> Estadoes { get; set; }
     }
 }

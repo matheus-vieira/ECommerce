@@ -1,0 +1,36 @@
+﻿@model Front.Models.Estado
+
+@{ 
+    Layout = null;
+}
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h4 class="modal-title" id="cidadeModalLabel">@Model.Nome &mdash; @Model.Uf</h4>
+</div>
+<div class="modal-body">
+
+    <table class="table">
+        <tr>
+            <th>Cidade</th>
+            <th>Código Ibge</th>
+        </tr>
+
+        @foreach (var item in Model.Cidades)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CodigoIbge)
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    <button type="button" class="btn btn-primary">Ok</button>
+</div>

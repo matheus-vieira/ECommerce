@@ -152,6 +152,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Contexts\ECommerceDbContext.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Controllers\CidadesController.cs" />
+    <Compile Include="Controllers\EstadosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\SellItemsController.cs" />
@@ -166,6 +168,8 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Cidade.cs" />
+    <Compile Include="Models\Estado.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\Sell.cs" />
     <Compile Include="Models\SellItem.cs" />
@@ -255,6 +259,17 @@
     <Content Include="Views\SellItems\_Create.cshtml" />
     <Content Include="Views\SellItems\_bySellEdit.cshtml" />
     <Content Include="Views\SellItems\_bySellDetails.cshtml" />
+    <Content Include="Views\Cidades\Create.cshtml" />
+    <Content Include="Views\Cidades\Delete.cshtml" />
+    <Content Include="Views\Cidades\Details.cshtml" />
+    <Content Include="Views\Cidades\Edit.cshtml" />
+    <Content Include="Views\Cidades\Index.cshtml" />
+    <Content Include="Views\Estados\Create.cshtml" />
+    <Content Include="Views\Estados\Delete.cshtml" />
+    <Content Include="Views\Estados\Details.cshtml" />
+    <Content Include="Views\Estados\Edit.cshtml" />
+    <Content Include="Views\Estados\Index.cshtml" />
+    <Content Include="Views\Estados\GetCidades.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
